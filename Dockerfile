@@ -20,7 +20,7 @@ RUN apk update \
         make \
 	    musl-dev \
         postgresql-dev \
-        python-dev \
+        python3-dev \
         unixodbc-dev \
     && PIP_BREAK_SYSTEM_PACKAGES=1 pip install -r /changeme/requirements.txt \
     && apk del .build-deps \
