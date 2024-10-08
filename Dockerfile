@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.18.3
 MAINTAINER Zach Grace (@ztgrace)
 
 RUN mkdir /changeme
@@ -8,8 +8,8 @@ RUN apk update \
     && apk add --no-cache --virtual .changeme-deps \
         bash \
         libxml2 \
-        py-lxml \
-        py-pip \
+        py3-lxml \
+        py3-pip \
     && apk add --no-cache --virtual .build-deps \
         ca-certificates \
         gcc \
@@ -22,7 +22,7 @@ RUN apk update \
         postgresql-dev \
         python-dev \
         unixodbc-dev \
-    && pip install -r /changeme/requirements.txt \
+    && PIP_BREAK_SYSTEM_PACKAGES=1 pip install -r /changeme/requirements.txt \
     && apk del .build-deps \
     && find /usr/ -type f -a -name '*.pyc' -o -name '*.pyo' -exec rm '{}' \; \
     && ln -s /changeme/changeme.py /usr/local/bin/
